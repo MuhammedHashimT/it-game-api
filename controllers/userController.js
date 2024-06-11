@@ -27,4 +27,17 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-module.exports = { getUserProfile, updateUserProfile };
+// Delete User
+const deleteUser = async (req, res) => {
+  await User.findByIdAndDelete(req.user._id);
+  res.json({ message: 'User deleted' });
+};
+
+// Create Multiple Users
+const createManyUsers = async (req, res) => {
+  const users = req.body;
+  const createdUsers = await User.insertMany(users);
+  res.status(201).json(createdUsers);
+};
+
+module.exports = { getUserProfile, updateUserProfile, deleteUser, createManyUsers };
